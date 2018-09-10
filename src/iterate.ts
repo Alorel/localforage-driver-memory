@@ -6,7 +6,7 @@ export function iterate(this: any, iterator: any, callback?: any) {
     const store = (<Store>this._dbInfo.mStore);
     const keys = store.keys();
 
-    for (let i = 1; i <= keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
       let value = store.get(keys[i]);
 
       // If a result was found, parse it from the serialized
@@ -17,7 +17,7 @@ export function iterate(this: any, iterator: any, callback?: any) {
         value = this._dbInfo.serializer.deserialize(value);
       }
 
-      value = iterator(value, keys[i], i);
+      value = iterator(value, keys[i], i + 1);
 
       if (value !== undefined) {
         return value;

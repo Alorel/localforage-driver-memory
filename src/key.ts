@@ -6,6 +6,10 @@ export function key(this: any, idx: number, callback?: any) {
     let result: any;
     try {
       result = (<Store>this._dbInfo.mStore).key(idx);
+
+      if (result === undefined) {
+        result = null;
+      }
     } catch {
       result = null;
     }

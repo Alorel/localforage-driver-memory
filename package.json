@@ -10,20 +10,44 @@
   "scripts": {
     "refresh": "yarn --check-files",
     "prebuild:es5": "rimraf dist",
-    "build:es5": "tsc",
+    "prebuild": "rimraf dist",
+    "build": "concurrently \"npm run build:webpack\" \"npm run build:es5\" \"npm run build:esm5\" \"npm run build:esm2015\"",
+    "build:esm5": "tsc -p ./tsconfig.esm5.json",
+    "build:esm2015": "tsc -p ./tsconfig.esm2015.json",
+    "build:webpack": "webpack",
+    "build:es5": "tsc -p ./tsconfig.json --declaration",
     "watch:es5": "npm run build:es5 -- --watch",
     "lint": "tslint -s ./node_modules/custom-tslint-formatters/formatters -t grouped -p ./tsconfig.json",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "pretest": "rimraf coverage",
+    "test": "nyc mocha --opts ./mocha.opts"
   },
   "peerDependencies": {
     "localforage": "^1.7.0"
   },
   "devDependencies": {
+    "@alorel-personal/build-tools": "3.1.0",
     "@alorel-personal/tslint-rules": "2.0.0",
+    "@types/chai": "~4.1.4",
+    "@types/mocha": "~5.2.5",
+    "@types/uuid": "~3.4.4",
+    "chai": "~4.1.2",
+    "concurrently": "~4.0.1",
+    "coveralls": "~3.0.2",
     "custom-tslint-formatters": "~2.4.0",
+    "localforage": "~1.7.2",
+    "lodash": "~4.17.10",
+    "mocha": "~5.2.0",
+    "nyc": "~13.0.1",
     "rimraf": "~2.6.2",
+    "source-map-support": "~0.5.9",
+    "ts-loader": "~5.1.0",
+    "ts-node": "~7.0.1",
     "tslint": "~5.11.0",
-    "typescript": "~3.0.3"
+    "typescript": "~3.0.3",
+    "uuid": "~3.3.2",
+    "webpack": "~4.18.0",
+    "webpack-cli": "~3.1.0"
   },
   "dependencies": {
     "localforage-driver-commons": "https://github.com/Alorel/localforage-driver-commons.git#c1ab90bb20eeaa444c12421c78aa73f4a462152f"
