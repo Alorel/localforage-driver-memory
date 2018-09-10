@@ -25,7 +25,7 @@
     "build:umd": "webpack --progress",
     "build:es5": "tsc -p ./tsconfig.json --declaration",
     "watch:es5": "npm run build:es5 -- --watch",
-    "lint": "tslint -s ./node_modules/custom-tslint-formatters/formatters -t grouped -p ./tsconfig.json",
+    "lint": "tslint -s ./node_modules/custom-tslint-formatters/formatters -t grouped -p ./tsconfig.test.json",
     "lint:fix": "npm run lint -- --fix",
     "pretest": "rimraf coverage",
     "test": "nyc mocha --opts ./mocha.opts"
