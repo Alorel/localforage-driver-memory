@@ -1,0 +1,39 @@
+language: node_js
+node_js: lts/*
+sudo: false
+
+before_install:
+- npm i -g greenkeeper-lockfile yarn
+- &prepKey if [[ $GH_TOKEN ]]; then ./prepare-gpg-key.sh; fi;
+- greenkeeper-lockfile-update
+
+install: yarn install --check-files
+
+script:
+- yarn run lint
+- if [[ $GH_TOKEN ]]; then yarn run build && semantic-release --dry-run --branch $TRAVIS_BRANCH; else yarn run build:esm5 --noEmit; fi;
+- yarn test
+
+after_script: if [[ $GH_TOKEN ]]; then greenkeeper-lockfile-upload; fi;
+
+after_success: cat ./coverage/lcov.info | coveralls
+
+cache:
+  yarn: true
+
+stages:
+- Test
+- Release
+
+jobs:
+  include:
+  - stage: Test
+  - stage: Release
+    if: branch = master AND type = push AND (NOT tag IS present)
+    before_install:
+    - npm i -g yarn
+    - *prepKey
+    before_script: yarn run build
+    script: semantic-release
+    after_script: []
+    after_success: []

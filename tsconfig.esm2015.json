@@ -2,6 +2,6 @@
   "extends": "./tsconfig.esm5.json",
   "compilerOptions": {
     "target": "es6",
-    "outDir": "dist/es2015"
+    "outDir": "dist/esm2015"
   }
 }

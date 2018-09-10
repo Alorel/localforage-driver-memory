@@ -7,7 +7,7 @@ module.exports = function () {
     devtool: '(none)',
     output: {
       path: join(__dirname, 'dist', 'umd'),
-      filename: 'bundle.umd.js',
+      filename: 'localforage-driver-memory.umd.js',
       libraryTarget: 'umd',
       library: 'localforageDriverMemory'
     },

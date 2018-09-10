@@ -7,5 +7,5 @@ function mkCfg(overrides = {}) {
 
 module.exports = [
   mkCfg({mode: 'development'}),
-  mkCfg({mode: 'production', output: {filename: 'bundle.umd.min.js'}})
+  mkCfg({mode: 'production', output: {filename: 'localforage-driver-memory.umd.min.js'}})
 ];
