@@ -1,1 +1,1 @@
-export const _driver = 'localforage-driver-session-store';
+export const _driver = 'localforage-driver-memory';
