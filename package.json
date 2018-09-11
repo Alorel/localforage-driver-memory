@@ -48,6 +48,7 @@
     "concurrently": "~4.0.1",
     "coveralls": "~3.0.2",
     "custom-tslint-formatters": "~2.4.0",
+    "lf-1.6": "npm:localforage@~1.6.0",
     "localforage": "~1.7.2",
     "lodash": "~4.17.10",
     "mocha": "~5.2.0",

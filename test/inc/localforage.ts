@@ -1,3 +1,4 @@
-import 'localforage';
+const env = process.env.LF_VERSION;
+const lfPackage = !env || env === 'latest' ? 'localforage' : `lf-${env}`;
 
-export const lf: any = require('localforage'); //tslint:disable-line:no-var-requires
+export const lf: any = require(lfPackage);

@@ -1,0 +1,7 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "ordered-imports": false,
+    "no-var-requires": false
+  }
+}
