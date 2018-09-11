@@ -32,18 +32,10 @@ jobs:
     env: LF_VERSION=latest
   - stage: Test
     env: LF_VERSION=1.6
+    if: NOT type = cron
   - stage: Test
     env: LF_VERSION=1.5
-  - stage: Test
-    env: LF_VERSION=1.4
-  - stage: Test
-    env: LF_VERSION=1.3
-  - stage: Test
-    env: LF_VERSION=1.2
-  - stage: Test
-    env: LF_VERSION=1.1
-  - stage: Test
-    env: LF_VERSION=1.0
+    if: NOT type = cron
   - stage: Release
     before_install:
     - npm i -g yarn
