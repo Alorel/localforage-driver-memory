@@ -2,11 +2,6 @@ language: node_js
 node_js: lts/*
 sudo: false
 
-env:
-  matrix:
-  - LF_VERSION=latest
-  - LF_VERSION=1.6
-
 before_install:
 - npm i -g greenkeeper-lockfile yarn
 - &prepKey if [[ $GH_TOKEN ]]; then ./prepare-gpg-key.sh; fi;
@@ -34,6 +29,9 @@ stages:
 jobs:
   include:
   - stage: Test
+    env: LF_VERSION=latest
+  - stage: Test
+    env: LF_VERSION=1.6
   - stage: Release
     before_install:
     - npm i -g yarn
