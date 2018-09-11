@@ -17,7 +17,6 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "refresh": "yarn --check-files",
     "prebuild": "rimraf dist",
     "build": "concurrently \"npm run build:umd\" \"npm run build:es5\" \"npm run build:esm5\" \"npm run build:esm2015\"",
     "build:esm5": "tsc -p ./tsconfig.esm5.json",
