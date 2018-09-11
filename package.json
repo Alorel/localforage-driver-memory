@@ -1,6 +1,6 @@
 {
   "name": "localforage-driver-memory",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "in-memory localforage driver that resets on page reload",
   "main": "index.js",
   "types": "index.d.ts",

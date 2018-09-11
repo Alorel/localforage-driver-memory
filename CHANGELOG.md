@@ -1,3 +1,15 @@
+## [1.0.3](https://github.com/Alorel/localforage-driver-memory/compare/1.0.2...1.0.3) (2018-09-11)
+
+
+### Bug Fixes
+
+* **_driver:** fix driver name ([7d7cb65](https://github.com/Alorel/localforage-driver-memory/commit/7d7cb65))
+
+
+### Maintenance
+
+* Remove refresh script from package.json ([383eb56](https://github.com/Alorel/localforage-driver-memory/commit/383eb56))
+
 ## [1.0.2](https://github.com/Alorel/localforage-driver-memory/compare/1.0.1...1.0.2) (2018-09-11)
 
 
