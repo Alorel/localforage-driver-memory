@@ -35,7 +35,6 @@ jobs:
   include:
   - stage: Test
   - stage: Release
-    env: LF_VERSION=latest
     before_install:
     - npm i -g yarn
     - *prepKey
