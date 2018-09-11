@@ -11,7 +11,6 @@ install: yarn install --check-files
 
 script:
 - yarn run lint
-- if [[ $GH_TOKEN ]]; then yarn run build && semantic-release --dry-run --branch $TRAVIS_BRANCH; else yarn run build:esm5 --noEmit; fi;
 - yarn test
 
 after_script: if [[ $GH_TOKEN ]]; then greenkeeper-lockfile-upload; fi;
@@ -30,6 +29,10 @@ jobs:
   include:
   - stage: Test
     env: LF_VERSION=latest
+    script:
+      - yarn run lint
+      - if [[ $GH_TOKEN ]]; then yarn run build && semantic-release --dry-run --branch $TRAVIS_BRANCH; fi;
+      - yarn test
   - stage: Test
     env: LF_VERSION=1.6
     if: NOT type = cron
