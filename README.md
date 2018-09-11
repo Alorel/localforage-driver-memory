@@ -6,7 +6,7 @@ In-memory localforage driver that forgets all data on page reload.
 [![Travis (.com) branch](https://img.shields.io/travis/com/Alorel/localforage-driver-memory/1.0.0.svg?style=flat-square)](https://travis-ci.com/Alorel/localforage-driver-memory)
 [![Coveralls github branch](https://img.shields.io/coveralls/github/Alorel/localforage-driver-memory/1.0.0.svg?style=flat-square)](https://coveralls.io/github/Alorel/localforage-driver-memory)
 
-UMD global name: **localforageDriverCommons**
+UMD global name: **localforageDriverMemory**
 
 ---
 
