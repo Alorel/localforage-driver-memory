@@ -23,13 +23,20 @@ cache:
 
 stages:
 - Test
-- Release
+- name: Release
+  if: branch = master AND type = push AND (NOT tag IS present)
 
 jobs:
   include:
   - stage: Test
+    env: LF_VERSION=latest
+  - stage: Test
+    env: LF_VERSION=1.6
+    if: NOT type = cron
+  - stage: Test
+    env: LF_VERSION=1.5
+    if: NOT type = cron
   - stage: Release
-    if: branch = master AND type = push AND (NOT tag IS present)
     before_install:
     - npm i -g yarn
     - *prepKey
