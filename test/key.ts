@@ -23,7 +23,7 @@ describe('key', () => {
     expect(await d1.key(0)).to.eq('foo');
   });
 
-  it('d1 k1 should be foo', async () => {
+  it('d1 k1 should be bar', async () => {
     expect(await d1.key(1)).to.eq('bar');
   });
 
