@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Alorel/localforage-driver-memory/compare/1.0.1...1.0.2) (2018-09-11)
+
+
+### Bug Fixes
+
+* **package:** Set localforage peer dependency to ^1.5.0 ([96bbcba](https://github.com/Alorel/localforage-driver-memory/commit/96bbcba))
+
 ## [1.0.1](https://github.com/Alorel/localforage-driver-memory/compare/1.0.0...1.0.1) (2018-09-11)
 
 
