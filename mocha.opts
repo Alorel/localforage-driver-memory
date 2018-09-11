@@ -1,0 +1,12 @@
+--check-leaks
+--exit
+--full-trace
+-r ts-node/register
+-r source-map-support/register
+-t 10000
+--trace-deprecation
+--trace-warnings
+--throw-deprecation
+--recursive
+--watch-extensions ts
+test/*.ts

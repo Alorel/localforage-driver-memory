@@ -1,0 +1,10 @@
+copy-files:
+  from:
+  - package.json
+  - LICENSE
+  - CHANGELOG.md
+  - README.md
+  to: dist
+
+global:
+  dist-dirs: './dist'
