@@ -54,7 +54,7 @@
     "mocha": "~5.2.0",
     "nyc": "~13.0.1",
     "rimraf": "~2.6.2",
-    "semantic-release": "~15.9.14",
+    "semantic-release": "~15.10.3",
     "source-map-support": "~0.5.9",
     "ts-loader": "~5.1.0",
     "ts-node": "~7.0.1",
