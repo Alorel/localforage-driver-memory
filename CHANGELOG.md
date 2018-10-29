@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/Alorel/localforage-driver-memory.git/compare/1.0.3...1.0.4) (2018-10-29)
+
+
+### Maintenance
+
+* Add GitHub issue templates ([ec751eb](https://github.com/Alorel/localforage-driver-memory.git/commit/ec751eb))
+* Redistribute in flat ESM format ([1f497c5](https://github.com/Alorel/localforage-driver-memory.git/commit/1f497c5))
+
 ## [1.0.3](https://github.com/Alorel/localforage-driver-memory/compare/1.0.2...1.0.3) (2018-09-11)
 
 
