@@ -1,3 +1,20 @@
+## [1.0.5](https://github.com/Alorel/localforage-driver-memory/compare/1.0.4...1.0.5) (2019-01-15)
+
+
+### Bug Fixes
+
+* getItem should now return null instead of undefined on a nonexistent value ([7b25c09](https://github.com/Alorel/localforage-driver-memory/commit/7b25c09))
+
+
+### Maintenance
+
+* Update deps ([d22dc95](https://github.com/Alorel/localforage-driver-memory/commit/d22dc95))
+
+
+### Tests
+
+* Update tests ([818d6a7](https://github.com/Alorel/localforage-driver-memory/commit/818d6a7))
+
 ## [1.0.4](https://github.com/Alorel/localforage-driver-memory.git/compare/1.0.3...1.0.4) (2018-10-29)
 
 
