@@ -26,11 +26,11 @@ describe('setItem & getItem', () => {
   });
 
   it('d1 should not have bar', async () => {
-    expect(await d1.getItem('bar')).to.be.undefined;
+    expect(await d1.getItem('bar')).to.be.null;
   });
 
   it('d2 should not have foo', async () => {
-    expect(await d2.getItem('foo')).to.be.undefined;
+    expect(await d2.getItem('foo')).to.be.null;
   });
 
   it('Setting undefined should set null', async () => {

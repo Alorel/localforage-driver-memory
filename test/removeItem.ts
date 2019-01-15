@@ -15,6 +15,6 @@ describe('removeItem', () => {
 
   it('foo should be undefined after deleting', async () => {
     await d.removeItem('foo');
-    expect(await d.getItem('foo')).to.be.undefined;
+    expect(await d.getItem('foo')).to.be.null;
   });
 });
