@@ -41,7 +41,7 @@
     "lf-1.6": "npm:localforage@~1.6.0",
     "localforage": "~1.7.2",
     "lodash": "~4.17.10",
-    "mocha": "~5.2.0",
+    "mocha": "~6.0.0",
     "nyc": "~13.3.0",
     "rimraf": "~2.6.2",
     "semantic-release": "~15.13.0",
