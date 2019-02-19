@@ -12,14 +12,14 @@
   "scripts": {
     "build": "alo build",
     "lint": "alo tslint -p ./tsconfig.test.json",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "npm --scripts-prepend-node-path=auto run lint -- --fix",
     "pretest": "rimraf coverage",
     "test": "nyc mocha --opts ./mocha.opts",
-    "test:watch": "npm run test -- --watch",
+    "test:watch": "npm --scripts-prepend-node-path=auto run test -- --watch",
     "tslint": "alo tslint -p tsconfig.test.json",
-    "tslint:fix": "npm run tslint -- --fix",
+    "tslint:fix": "npm --scripts-prepend-node-path=auto run tslint -- --fix",
     "typecheck": "tsc --noEmit",
-    "typecheck:watch": "npm run typecheck -- --watch"
+    "typecheck:watch": "npm --scripts-prepend-node-path=auto run typecheck -- --watch"
   },
   "peerDependencies": {
     "localforage": "^1.5.0"
@@ -41,14 +41,14 @@
     "lf-1.6": "npm:localforage@~1.6.0",
     "localforage": "~1.7.2",
     "lodash": "~4.17.10",
-    "mocha": "~5.2.0",
+    "mocha": "~6.0.0",
     "nyc": "~13.3.0",
     "rimraf": "~2.6.2",
     "semantic-release": "~15.13.0",
     "source-map-support": "~0.5.9",
     "ts-loader": "~5.3.2",
-    "ts-node": "~7.0.1",
-    "typescript": "~3.2.2",
+    "ts-node": "~8.0.2",
+    "typescript": "~3.3.3",
     "uuid": "~3.3.2"
   },
   "dependencies": {
