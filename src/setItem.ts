@@ -1,6 +1,12 @@
 import {executeCallback, normaliseKey} from 'localforage-driver-commons';
 import {Store} from './Store';
 
+/**
+ * Set the item in storage
+ * @param key$ Item key
+ * @param value Item value
+ * @param callback callback for when the operation completes
+ */
 export function setItem(this: any, key$: string, value: any, callback?: any) {
   key$ = normaliseKey(key$);
 

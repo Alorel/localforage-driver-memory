@@ -1,3 +1,4 @@
+/** An indicator that this driver is supported (all browsers will support it) */
 export const _support = true;
 export {_driver} from './_driver';
 export {_initStorage} from './_initStorage';

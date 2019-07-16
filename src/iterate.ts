@@ -1,6 +1,11 @@
 import {executeCallback} from 'localforage-driver-commons';
 import {Store} from './Store';
 
+/**
+ * Iterate over key/value pairs
+ * @param iterator Iterator function
+ * @param callback Callback for when the operation completes
+ */
 export function iterate(this: any, iterator: any, callback?: any) {
   const promise = this.ready().then(() => {
     const store = (<Store>this._dbInfo.mStore);
