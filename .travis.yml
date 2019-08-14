@@ -3,15 +3,14 @@ node_js: lts/*
 sudo: false
 
 before_install:
-- npm i -g greenkeeper-lockfile yarn
-- &prepKey if [[ $GH_TOKEN ]]; then ./prepare-gpg-key.sh; fi;
-- greenkeeper-lockfile-update
+  - npm i -g greenkeeper-lockfile yarn
+  - greenkeeper-lockfile-update
 
 install: yarn install --check-files
 
 script:
-- yarn run lint
-- yarn test
+  - yarn run lint
+  - yarn test
 
 after_script: if [[ $GH_TOKEN ]]; then greenkeeper-lockfile-upload; fi;
 
@@ -21,29 +20,27 @@ cache:
   yarn: true
 
 stages:
-- Test
-- name: Release
-  if: branch = master AND type = push AND (NOT tag IS present)
+  - Test
+  - name: Release
+    if: branch = master AND type = push AND (NOT tag IS present)
 
 jobs:
   include:
-  - stage: Test
-    env: LF_VERSION=latest
-    script:
-      - yarn run lint
-      - if [[ $GH_TOKEN ]]; then yarn run build && semantic-release --dry-run --branch $TRAVIS_BRANCH; fi;
-      - yarn test
-  - stage: Test
-    env: LF_VERSION=1.6
-    if: NOT type = cron
-  - stage: Test
-    env: LF_VERSION=1.5
-    if: NOT type = cron
-  - stage: Release
-    before_install:
-    - npm i -g yarn
-    - *prepKey
-    before_script: yarn run build
-    script: semantic-release
-    after_script: []
-    after_success: []
+    - stage: Test
+      env: LF_VERSION=latest
+      script:
+        - yarn run lint
+        - if [[ $GH_TOKEN ]]; then yarn run build && semantic-release --dry-run --branch $TRAVIS_BRANCH; fi;
+        - yarn test
+    - stage: Test
+      env: LF_VERSION=1.6
+      if: NOT type = cron
+    - stage: Test
+      env: LF_VERSION=1.5
+      if: NOT type = cron
+    - stage: Release
+      before_install: npm i -g yarn
+      before_script: yarn run build
+      script: semantic-release
+      after_script: []
+      after_success: []
