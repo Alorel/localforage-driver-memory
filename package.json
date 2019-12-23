@@ -42,7 +42,7 @@
     "localforage": "~1.7.2",
     "lodash": "~4.17.14",
     "mocha": "~6.2.0",
-    "nyc": "~14.1.0",
+    "nyc": "~15.0.0",
     "rimraf": "~3.0.0",
     "semantic-release": "~15.13.0",
     "source-map-support": "~0.5.9",
