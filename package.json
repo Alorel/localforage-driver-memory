@@ -31,7 +31,7 @@
     "@alorel-personal/tslint-rules": "5.0.6",
     "@semantic-release/changelog": "~3.0.0",
     "@semantic-release/exec": "~3.3.0",
-    "@semantic-release/git": "~7.0.3",
+    "@semantic-release/git": "~9.0.0",
     "@types/chai": "~4.2.0",
     "@types/mocha": "~5.2.5",
     "@types/uuid": "~3.4.4",
