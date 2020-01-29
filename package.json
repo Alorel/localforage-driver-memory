@@ -33,7 +33,7 @@
     "@semantic-release/exec": "~3.3.0",
     "@semantic-release/git": "~7.0.3",
     "@types/chai": "~4.2.0",
-    "@types/mocha": "~5.2.5",
+    "@types/mocha": "~7.0.1",
     "@types/uuid": "~3.4.4",
     "chai": "~4.2.0",
     "coveralls": "~3.0.2",
