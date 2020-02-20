@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "localforage-driver-commons": "^1.0.1",
-    "tslib": "^1.6.0"
+    "tslib": "^1.11.0"
   },
   "greenkeeper": {
     "ignore": [
