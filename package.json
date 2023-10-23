@@ -7,7 +7,7 @@
   "jsdelivr": "_bundle/umd.min.js",
   "repository": "git@github.com:Alorel/localforage-driver-memory.git",
   "author": "Arturas Molcanovas <a.molcanovas@gmail.com> (https://github.com/Alorel)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": false,
   "scripts": {
     "build": "alo build",
