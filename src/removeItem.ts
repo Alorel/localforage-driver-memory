@@ -1,19 +1,17 @@
-import {executeCallback, normaliseKey} from 'localforage-driver-commons';
-import {Store} from './Store';
+/// <reference types="localforage" />
 
-/**
- * Remove item from storage
- * @param key$ Item key
- * @param callback Callback for when the operation completes
- */
-export function removeItem(this: any, key$: string, callback?: any) {
-  key$ = normaliseKey(key$);
+import {type CallbackFn, executeCallback, normaliseKey} from 'localforage-driver-commons';
+import {DB_INFO, type LocalForageExt} from './config';
 
-  const promise = this.ready().then(() => {
-    (<Store>this._dbInfo.mStore).rm(key$);
-  });
+/** @internal */
+export function removeItem(this: LocalForage, key: string, callback?: (err?: Error) => void): Promise<void> {
+  const normalisedKey = normaliseKey(key);
 
-  executeCallback(promise, callback);
+  const promise = this.ready().then<void>(() => (
+    (this as LocalForageExt)[DB_INFO].mStore.rm(normalisedKey)
+  ));
+
+  executeCallback(promise, callback as CallbackFn<any>);
 
   return promise;
 }

@@ -1,18 +1,17 @@
 import {expect} from 'chai';
-import './inc/defineDriver';
-import {mkInstance} from './inc/mkInstance';
+import {createInstance} from 'localforage';
+import {DRIVER_NAME} from '../src/index';
+import {DEFINE_DRIVER_PROMISE} from './inc/mkInstance';
 
-describe('dropInstance', () => {
-  const d1 = mkInstance();
-  let data: any;
+describe('dropInstance', async () => {
+  before(() => DEFINE_DRIVER_PROMISE);
 
-  before('initDrivers', () => d1.setItem('foo', 'bar'));
-  before('snapshot data', () => {
-    data = d1._dbInfo.mStore.data;
-  });
-
-  it('data objects should be different', async () => {
+  it('Should not reuse data', async () => {
+    const d1 = createInstance({driver: DRIVER_NAME});
+    await d1.setItem('foo', 'bar');
     await d1.dropInstance();
-    expect(data === d1._dbInfo.mStore.data).to.be.false;
+    
+    const d2 = createInstance({driver: DRIVER_NAME});
+    expect(await d2.length()).to.eq(0);
   });
 });

@@ -1,14 +1,14 @@
-import {executeCallback} from 'localforage-driver-commons';
-import {Store} from './Store';
+/// <reference types="localforage" />
 
-/**
- * List keys in storage
- * @param callback Callback for when the operation completes
- */
-export function keys(this: any, callback?: any) {
-  const promise = this.ready().then(() => {
-    return (<Store>this._dbInfo.mStore).keys();
-  });
+import {type CallbackFn, executeCallback} from 'localforage-driver-commons';
+import type {LocalForageExt} from './config';
+import {DB_INFO} from './config';
+
+/** @internal */
+export function keys(this: LocalForage, callback?: CallbackFn<string[]>): Promise<string[]> {
+  const promise = this.ready().then<string[]>(() => (
+    [...(this as LocalForageExt)[DB_INFO].mStore.keys()]
+  ));
 
   executeCallback(promise, callback);
 

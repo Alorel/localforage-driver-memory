@@ -1,13 +1,31 @@
-/** An indicator that this driver is supported (all browsers will support it) */
-export const _support = true;
-export {_driver} from './_driver';
-export {_initStorage} from './_initStorage';
-export {clear} from './clear';
-export {dropInstance} from './dropInstance';
-export {getItem} from './getItem';
-export {iterate} from './iterate';
-export {key} from './key';
-export {keys} from './keys';
-export {length} from './length';
-export {removeItem} from './removeItem';
-export {setItem} from './setItem';
+/// <reference types="localforage" />
+
+import {clear} from './clear';
+import {dropInstance} from './dropInstance';
+import {getItem} from './getItem';
+import {initStorage} from './initStorage';
+import {iterate} from './iterate';
+import {key} from './key';
+import {keys} from './keys';
+import {length} from './length';
+import {removeItem} from './removeItem';
+import {setItem} from './setItem';
+
+export const DRIVER_NAME = 'localforage-driver-memory';
+
+const driver: LocalForageDriver = {
+  _driver: DRIVER_NAME,
+  _initStorage: initStorage,
+  _support: true,
+  clear,
+  dropInstance,
+  getItem,
+  iterate,
+  key,
+  keys,
+  length,
+  removeItem,
+  setItem
+};
+
+export default driver;

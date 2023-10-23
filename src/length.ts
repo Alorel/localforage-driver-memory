@@ -1,13 +1,13 @@
-import {executeCallback} from 'localforage-driver-commons';
+/// <reference types="localforage" />
 
-/**
- * Return the number of items in storage
- * @param callback Callback for when the operation completes
- */
-export function length(this: any, callback?: any) {
-  const promise = this.keys().then((keys$: any[]) => keys$.length);
+import {type CallbackFn, executeCallback} from 'localforage-driver-commons';
+import {DB_INFO, type LocalForageExt} from './config';
 
-  executeCallback(promise, callback);
+/** @internal */
+export function length(this: LocalForage, callback?: CallbackFn<number>): Promise<number> {
+  const p = this.ready().then(() => (this as LocalForageExt)[DB_INFO].mStore.len);
 
-  return promise;
+  executeCallback(p, callback);
+
+  return p;
 }

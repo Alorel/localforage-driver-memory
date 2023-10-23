@@ -1,47 +1,95 @@
-const stores: { [store: string]: Store } = {};
+/// <reference types="localforage" />
+
+const storeMap = new Map<string, Store>();
+
+interface DataRef {
+  data: any;
+
+  idx: number;
+
+  key: string;
+}
 
 /** @internal */
-export class Store {
+class Store {
 
-  private data: { [k: string]: any } = {};
+  private array: DataRef[] = [];
 
-  private constructor(private readonly kp: string) {
+  private readonly map = new Map<string, DataRef>();
+
+  public constructor(private readonly kp: string) {
+    // just assign the `kp`
   }
 
-  public static resolve(kp: string): Store {
-    if (!stores[kp]) {
-      stores[kp] = new Store(kp);
-    }
+  public get len(): number {
+    return this.array.length;
+  }
 
-    return stores[kp];
+  *[Symbol.iterator](): Generator<[number, string, any], void> {
+    for (const [i, {key, data}] of this.array.entries()) {
+      yield [i + 1, key, data];
+    }
   }
 
   public clear(): void {
-    this.data = {};
+    this.map.clear();
+    this.array = [];
   }
 
   public drop(): void {
     this.clear();
-    delete stores[this.kp];
+    storeMap.delete(this.kp);
   }
 
-  public get(key: string): any {
-    return this.data[key];
+  public get<T>(key: string): T | undefined {
+    return this.map.get(key)?.data;
   }
 
-  public key(idx: number): string {
-    return this.keys()[idx];
+  public key(idx: number): string | undefined {
+    return this.array[idx]?.key;
   }
 
-  public keys(): string[] {
-    return Object.keys(this.data);
+  public *keys(): Generator<string, void> {
+    for (const {key} of this.array) {
+      yield key;
+    }
   }
 
   public rm(k: string): void {
-    delete this.data[k];
+    const data = this.map.get(k);
+    if (data) {
+      this.map.delete(k);
+      this.array.splice(data.idx, 1);
+    }
   }
 
-  public set(k: string, v: any): void {
-    this.data[k] = v;
+  public set<V>(k: string, v: V): void {
+    const dRef: DataRef = {
+      data: v,
+      idx: this.array.length,
+      key: k
+    };
+    this.map.set(k, dRef);
+    this.array.push(dRef);
   }
 }
+
+const proxy = new Proxy(Store, {
+  construct(_: typeof Store, [keyPrefix]: [string]): Store {
+    const existing = storeMap.get(keyPrefix);
+    if (existing) {
+      return existing;
+    }
+
+    const nu = new Store(keyPrefix);
+    storeMap.set(keyPrefix, nu);
+
+    return nu;
+  }
+});
+
+/** @internal */
+export {proxy as Store};
+
+/** @internal */
+export type {Store as TStore};

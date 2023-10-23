@@ -1,30 +1,30 @@
 import {expect} from 'chai';
+import type {LocalForageExt} from '../src/config';
 import {mkInstance} from './inc/mkInstance';
 
 describe('iterate', () => {
-  let d1: any;
-  let d2: any;
-  let itRes1: any = {};
+  let d1: LocalForageExt;
+  let d2: LocalForageExt;
+  
+  let itRes1: Record<string, any>;
+  let itRes2: Record<string, any>;
   let itRsp1: any;
-  let itRes2: any = {};
   let itRsp2: any;
 
-  before('init', () => {
-    d1 = mkInstance();
-    d2 = mkInstance();
-  });
+  before('init', async () => {
+    [d1, d2] = await Promise.all([mkInstance(), mkInstance()]);
 
-  before('set', () => {
-    return Promise.all([
+    await Promise.all([
       d1.setItem('foo', 1),
       d1.setItem('bar', 2),
       d2.setItem('qux', 3),
       d2.setItem('baz', 4)
     ]);
-  });
-
-  before('Iterate', () => {
-    return Promise.all([
+    
+    itRes1 = {};
+    itRes2 = {};
+    
+    await Promise.all([
       d1.iterate((v: any, k: string, num: number) => {
           itRes1[k] = v;
 
@@ -49,7 +49,7 @@ describe('iterate', () => {
   });
 
   it('itRsp2 should be undefined', () => {
-    expect(itRsp2).to.be.undefined;
+    expect(itRsp2).to.eq(null);
   });
 
   it('itRes1 should have foo, bar', () => {
