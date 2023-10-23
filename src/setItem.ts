@@ -1,38 +1,30 @@
-import {executeCallback, normaliseKey} from 'localforage-driver-commons';
-import {Store} from './Store';
+/// <reference types="localforage" />
 
-/**
- * Set the item in storage
- * @param key$ Item key
- * @param value Item value
- * @param callback callback for when the operation completes
- */
-export function setItem(this: any, key$: string, value: any, callback?: any) {
-  key$ = normaliseKey(key$);
+import {type CallbackFn, executeCallback, normaliseKey} from 'localforage-driver-commons';
+import {DB_INFO, type LocalForageExt} from './config';
 
-  const promise = this.ready().then(() => {
-    if (value === undefined) {
-      value = null;
-    }
+/** @internal */
+export function setItem<T>(this: LocalForage, key: string, value: T, callback?: CallbackFn<T>): Promise<T> {
+  const normalisedKey = normaliseKey(key);
+  const normalisedValue = value === undefined ? null : value;
 
-    // Save the original value to pass to the callback.
-    const originalValue = value;
-
-    return new Promise<any>((resolve, reject) => {
-      this._dbInfo.serializer.serialize(value, (value$: string, error: Error) => {
+  const promise = this.ready().then<T>(() => (
+    new Promise<T>((resolve, reject) => {
+      const dbi = (this as LocalForageExt)[DB_INFO];
+      dbi.serializer.serialize(normalisedValue, (serialisedValue, error) => {
         if (error) {
           reject(error);
         } else {
           try {
-            (<Store>this._dbInfo.mStore).set(key$, value$);
-            resolve(originalValue);
+            dbi.mStore.set(normalisedKey, serialisedValue);
+            resolve(value);
           } catch (e) {
             reject(e);
           }
         }
       });
-    });
-  });
+    })
+  ));
 
   executeCallback(promise, callback);
 

@@ -1,13 +1,13 @@
-import {executeCallback} from 'localforage-driver-commons';
-import {Store} from './Store';
+/// <reference types="localforage" />
 
-/**
- * Clear all items from storage
- * @param callback Callback for when the operation completes
- */
-export function clear(this: any, callback?: (err: any) => void): Promise<void> {
+import {executeCallback} from 'localforage-driver-commons';
+import type {LocalForageExt} from './config';
+import {DB_INFO} from './config';
+
+/** @internal */
+export function clear(this: LocalForage, callback?: (err?: Error | null) => void): Promise<void> {
   const promise = this.ready().then(() => {
-    (<Store>this._dbInfo.mStore).clear();
+    (this as LocalForageExt)[DB_INFO].mStore.clear();
   });
 
   executeCallback(promise, callback);

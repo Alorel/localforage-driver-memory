@@ -1,40 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "allowJs": false,
-    "checkJs": false,
-    "outDir": "dist",
-    "experimentalDecorators": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "downlevelIteration": true,
-    "newLine": "lf",
-    "noFallthroughCasesInSwitch": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "importHelpers": false,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "strict": true,
-    "stripInternal": true,
-    "declaration": false,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": false,
-    "removeComments": false,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": false,
-    "lib": [
-      "es5",
-      "dom",
-      "es6"
-    ]
+    "sourceMap": false
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
+  "files": [
+    "src/index.ts"
   ]
 }

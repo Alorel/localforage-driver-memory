@@ -1,17 +1,15 @@
 import {expect} from 'chai';
+import {LocalForageExt} from '../src/config';
 import {mkInstance} from './inc/mkInstance';
 
 describe('setItem & getItem', () => {
-  let d1: any;
-  let d2: any;
+  let d1: LocalForageExt;
+  let d2: LocalForageExt;
 
-  before('init', () => {
-    d1 = mkInstance();
-    d2 = mkInstance();
-  });
+  before('init', async () => {
+    [d1, d2] = await Promise.all([mkInstance(), mkInstance()]);
 
-  before('set', () => {
-    return Promise.all([
+    await Promise.all([
       d1.setItem('foo', {foo: 'bar'}),
       d2.setItem('bar', {qux: 'baz'})
     ]);
@@ -26,15 +24,15 @@ describe('setItem & getItem', () => {
   });
 
   it('d1 should not have bar', async () => {
-    expect(await d1.getItem('bar')).to.be.null;
+    expect(await d1.getItem('bar')).to.eq(null);
   });
 
   it('d2 should not have foo', async () => {
-    expect(await d2.getItem('foo')).to.be.null;
+    expect(await d2.getItem('foo')).to.eq(null);
   });
 
   it('Setting undefined should set null', async () => {
     await d1.setItem('qux', undefined);
-    expect(await d1.getItem('qux')).to.be.null;
+    expect(await d1.getItem('qux')).to.eq(null);
   });
 });

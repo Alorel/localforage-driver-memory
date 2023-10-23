@@ -1,28 +1,26 @@
 import {expect} from 'chai';
+import type {LocalForageExt} from '../src/config';
 import {mkInstance} from './inc/mkInstance';
 
 describe('clear & keys', () => {
-  let d1: any;
-  let d2: any;
+  let d1: LocalForageExt;
+  let d2: LocalForageExt;
 
-  before('init', () => {
-    d1 = mkInstance();
-    d2 = mkInstance();
-  });
+  before('init, set & clear', async () => {
+    [d1, d2] = await Promise.all([mkInstance(), mkInstance()]);
 
-  before('set', () => {
-    return Promise.all([
+    await Promise.all([
       d1.setItem('foo', 1),
       d1.setItem('bar', 2),
       d2.setItem('qux', 1),
       d2.setItem('baz', 2)
     ]);
+
+    await d1.clear();
   });
 
-  before('clear', () => d1.clear());
-
   it('d1 should be empty', async () => {
-    expect(await d1.keys()).to.be.empty;
+    expect(await d1.keys()).to.have.a.lengthOf(0);
   });
 
   it('d2 should be qux/baz', async () => {

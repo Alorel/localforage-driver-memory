@@ -2,64 +2,68 @@
   "name": "localforage-driver-memory",
   "version": "1.0.5",
   "description": "in-memory localforage driver that resets on page reload",
-  "main": "index.js",
-  "browser": "_bundle/umd.js",
-  "jsdelivr": "_bundle/umd.min.js",
-  "repository": "git@github.com:Alorel/localforage-driver-memory.git",
-  "author": "Arturas Molcanovas <a.molcanovas@gmail.com> (https://github.com/Alorel)",
-  "license": "MIT",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm": "./es/index.js",
+      "module": "./es/index.js",
+      "import": "./es/index.js",
+      "node": "./cjs/index.js",
+      "default": "./cjs/index.js"
+    }
+  },
+  "author": {
+    "name": "Artūras Molčanovas",
+    "url": "https://alorel.github.io",
+    "email": "amolc@pm.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alorel/localforage-driver-memory.git"
+  },
+  "license": "Apache-2.0",
   "private": false,
   "scripts": {
-    "build": "alo build",
-    "lint": "alo tslint -p ./tsconfig.test.json",
-    "lint:fix": "npm --scripts-prepend-node-path=auto run lint -- --fix",
-    "pretest": "rimraf coverage",
-    "test": "nyc mocha --opts ./mocha.opts",
+    "clean": "rm -rfv dist && mkdir dist",
+    "build": "concurrently npm:build:*",
+    "build:es": "tsc --outDir dist/es",
+    "build:cjs": "tsc --outDir dist/cjs --module commonjs",
+    "build:dts": "tsc --outDir dist --declaration --emitDeclarationOnly",
+    "build:cp": "cp -v LICENSE README.md package.json .npmrc dist/",
+    "watch": "npm --scripts-prepend-node-path=auto run clean  && tsc --watch",
+    "prewatch": "npm --scripts-prepend-node-path=auto run clean",
+    "prebuild": "npm --scripts-prepend-node-path=auto run clean",
+    "test": "TS_NODE_PROJECT=tsconfig.test.json nyc mocha test/*.ts",
     "test:watch": "npm --scripts-prepend-node-path=auto run test -- --watch",
-    "tslint": "alo tslint -p tsconfig.test.json",
-    "tslint:fix": "npm --scripts-prepend-node-path=auto run tslint -- --fix",
-    "typecheck": "tsc --noEmit",
-    "typecheck:watch": "npm --scripts-prepend-node-path=auto run typecheck -- --watch"
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "npm --scripts-prepend-node-path=auto run lint -- --fix"
   },
   "peerDependencies": {
-    "localforage": "^1.5.0"
+    "localforage": "^1.10.0"
   },
   "devDependencies": {
-    "@alorel-personal/build-tools": "4.7.19",
-    "@alorel-personal/conventional-changelog-alorel": "2.1.1",
-    "@alorel-personal/semantic-release": "1.4.0",
-    "@alorel-personal/tslint-rules": "5.0.6",
-    "@semantic-release/changelog": "~3.0.0",
-    "@semantic-release/exec": "~3.3.0",
-    "@semantic-release/git": "~7.0.3",
-    "@types/chai": "~4.2.0",
-    "@types/mocha": "~5.2.5",
-    "@types/uuid": "~3.4.4",
-    "chai": "~4.2.0",
-    "coveralls": "~3.0.2",
-    "lf-1.5": "npm:localforage@~1.5.0",
-    "lf-1.6": "npm:localforage@~1.6.0",
-    "localforage": "~1.7.2",
-    "lodash": "~4.17.14",
-    "mocha": "~6.2.0",
-    "nyc": "~15.0.0",
-    "rimraf": "~3.0.0",
-    "semantic-release": "~19.0.3",
-    "source-map-support": "~0.5.9",
-    "ts-loader": "~6.0.4",
-    "ts-node": "~8.5.0",
-    "typescript": "~3.5.3",
-    "uuid": "~3.3.2"
+    "@alorel/eslint-config-base": "^1.0.18",
+    "@alorel/eslint-config-typescript": "^1.0.17",
+    "@types/chai": "^4.3.8",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "^20.8.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "chai": "^4.3.10",
+    "concurrently": "^8.2.1",
+    "eslint": "^8.51.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "localforage": "^1.10.0"
   },
   "dependencies": {
-    "localforage-driver-commons": "^1.0.1",
-    "tslib": "^1.6.0"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "lf-1.5",
-      "lf-1.6"
-    ]
+    "localforage-driver-commons": "file:../commons/dist/localforage-driver-commons-1.0.3.tgz"
   },
   "keywords": [
     "localforage",
@@ -67,12 +71,5 @@
     "memory",
     "in-memory",
     "ephemeral"
-  ],
-  "fesm5": "_bundle/fesm5.js",
-  "esm5": "_bundle/esm5/index.js",
-  "fesm2015": "_bundle/fesm2015.js",
-  "esm2015": "_bundle/esm2015/index.js",
-  "types": "index.d.ts",
-  "module": "_bundle/fesm5.js",
-  "typings": "index.d.ts"
+  ]
 }

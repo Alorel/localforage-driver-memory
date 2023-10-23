@@ -1,9 +1,0 @@
---check-leaks
---exit
---full-trace
--r ts-node/register
--r source-map-support/register
--t 10000
---recursive
---watch-extensions ts
-test/*.ts

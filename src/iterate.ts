@@ -1,36 +1,37 @@
-import {executeCallback} from 'localforage-driver-commons';
-import {Store} from './Store';
+/// <reference types="localforage" />
 
-/**
- * Iterate over key/value pairs
- * @param iterator Iterator function
- * @param callback Callback for when the operation completes
- */
-export function iterate(this: any, iterator: any, callback?: any) {
-  const promise = this.ready().then(() => {
-    const store = (<Store>this._dbInfo.mStore);
-    const keys = store.keys();
+import {type CallbackFn, executeCallback} from 'localforage-driver-commons';
+import {DB_INFO, type LocalForageExt} from './config';
 
-    for (let i = 0; i < keys.length; i++) {
-      let value = store.get(keys[i]);
+/** @internal */
+export function iterate<T, U>(
+  this: LocalForage,
+  iteratee: (value: T, key: string, iterationNumber: number) => U,
+  callback?: CallbackFn<U>
+): Promise<U> {
+  const promise = this.ready().then<U | null>(() => {
+    const {
+      mStore,
+      serializer: {deserialize}
+    } = (this as LocalForageExt)[DB_INFO];
 
-      // If a result was found, parse it from the serialized
-      // string into a JS object. If result isn't truthy, the
-      // key is likely undefined and we'll pass it straight
-      // to the iterator.
-      if (value) {
-        value = this._dbInfo.serializer.deserialize(value);
-      }
+    for (const [i, key, value] of mStore) {
+      /*
+       * If a result was found, parse it from the serialized string into a JS object. If result isn't truthy, the
+       * key is likely undefined and we'll pass it straight to the iterator.
+       */
+      const valueFmt = value ? deserialize(value) : value;
+      const postIter = iteratee(valueFmt, key, i);
 
-      value = iterator(value, keys[i], i + 1);
-
-      if (value !== undefined) {
-        return value;
+      if (postIter !== undefined) {
+        return postIter;
       }
     }
+
+    return null;
   });
 
-  executeCallback(promise, callback);
+  executeCallback(promise as Promise<U>, callback);
 
-  return promise;
+  return promise as Promise<U>;
 }

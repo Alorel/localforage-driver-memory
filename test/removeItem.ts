@@ -1,11 +1,12 @@
 import {expect} from 'chai';
+import type {LocalForageExt} from '../src/config';
 import {mkInstance} from './inc/mkInstance';
 
 describe('removeItem', () => {
-  let d: any;
+  let d: LocalForageExt;
 
   before('init', async () => {
-    d = mkInstance();
+    d = await mkInstance();
     await d.setItem('foo', 1);
   });
 
@@ -15,6 +16,6 @@ describe('removeItem', () => {
 
   it('foo should be undefined after deleting', async () => {
     await d.removeItem('foo');
-    expect(await d.getItem('foo')).to.be.null;
+    expect(await d.getItem('foo')).to.eq(null);
   });
 });

@@ -1,19 +1,17 @@
-import {dropInstanceCommon, executeCallback} from 'localforage-driver-commons';
+/// <reference types="localforage" />
+
+import {type CallbackFn, dropInstanceCommon, executeCallback} from 'localforage-driver-commons';
 import {Store} from './Store';
 
-/**
- * Drop the storage instance
- * @param _options Drop options
- * @param _cb Callback to execute when the operation completes
- */
-export function dropInstance(this: any, _options: any, _cb?: any) {
-  const {promise, callback} = dropInstanceCommon.apply(this, <any>arguments);
+/** @internal */
+export async function dropInstance(this: LocalForage, ...args: Parameters<LocalForageDropInstanceFn>): Promise<void> {
+  const {promise, callback} = dropInstanceCommon.apply(this, args);
 
   const outPromise = promise.then<void>(keyPrefix => {
-    Store.resolve(keyPrefix).drop();
+    new Store(keyPrefix).drop();
   });
 
-  executeCallback(outPromise, callback);
+  executeCallback(outPromise, callback as CallbackFn<any>);
 
-  return promise;
+  await promise;
 }
